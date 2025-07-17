@@ -23,8 +23,32 @@ Unstructured: PDFs, audio files, videos, emails"""
 """Data Storage: Saving data in databases, data lakes, or files"""
 """Data Analysis: Extracting insights using statistical methods, machine learning, or data visualization"""
 
-import pandas as pd
-import numpy as np
+#What Is Machine Learning?
+"""Machine Learning is a branch of AI where computers learn from data instead of being explicitly programmed."""
+"""You’ve written rules like:
+if hours > 3:
+    grade = 90
+else:
+    grade = 70
+In ML, you don’t write this rule — the machine figures it out automatically by looking at data."""
+
+#What Is a Model?
+"""A model is what gets created when the machine learns from data.
+Training: Model learns from X and y
+Prediction: Model uses what it learned to predict new y values
+Think of it like a function: model(X) → y"""
+
+"""Machine Learning is when you give the computer data instead of rules.
+The computer uses algorithms to learn patterns (like if-else logic or formulas) from the data and builds a model.
+That model acts like a function: you give it new inputs and it returns predictions based on what it learned."""
+
+
+
+
+
+
+import pandas as pd #type:ignore
+import numpy as np #type:ignore
 
 data = pd.read_csv('Data.csv')
 # print(data)
