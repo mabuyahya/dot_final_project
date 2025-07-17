@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Python Learning Guide{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Welcome to final the project in python course 👋</h1>
+    <p>An interactive journey through Python concepts with real explanations and examples</p>
+</div>
+
+<div class="content">
+    <!-- About Me Section -->
+    <div class="card">
+        <h3>about the project</h3>
+        <p>
+            while we were taking the course, i was buting each topic explanations and examples
+            that we toke through the course in a sprite file, and for the final project in dot python course, i used those files to
+            create this interactive guide to share my knowledge and understanding of various Python concepts that we have gone through the course.
+            This web application contains my personal explanations, code examples, and insights that I've gathered while learning Python.
+        </p>
+    </div>
+
+    <!-- Introduction Section -->
+    <div class="card">
+        <h3>What You'll Find Here</h3>
+        <p>
+            This guide covers all the topics that we have gone through in the course, using the explanations and examples that I have created:
+        </p>
+        <ul style="margin-top: 15px; margin-left: 20px;">
+            <li><strong>Data Types:</strong> Understanding Python's core data structures like strings, lists, dictionaries, and more</li>
+            <li><strong>Functions:</strong> How to create and use functions, including advanced concepts like *args and **kwargs</li>
+            <li><strong>Loops & Control Flow:</strong> Mastering Python's control structures and iteration</li>
+            <li><strong>Classes:</strong> Object-oriented programming concepts in Python</li>
+            <li><strong>Flask:</strong> Web development with Python's Flask framework</li>
+            <li><strong>Machine Learning:</strong> Introduction to ML concepts with practical examples</li>
+            <li><strong>Libraries:</strong> Working with NumPy, Tkinter, Turtle, and more</li>
+        </ul>
+    </div>
+
+    <!-- How to Use Section -->
+    <div class="card">
+        <h3>How to Use This Guide</h3>
+        <ol style="margin-left: 20px;">
+            <li><strong>Navigate:</strong> Use the sidebar to browse different Python concepts</li>
+            <li><strong>Explore:</strong> Each concept contains multiple explanation files with examples</li>
+            <li><strong>Learn:</strong> Read through explanations and examine the code examples</li>
+        </ol>
+    </div>
+
+    <!-- Featured Concepts -->
+    <div class="card">
+        <h3>Featured Concepts</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+            {% for concept in concepts %}
+            <a href="/concept/{{ concept }}" style="text-decoration: none; color: inherit;">
+                <div style="border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; 
+                           transition: all 0.3s ease; cursor: pointer;"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(32,178,170,0.3)'; this.style.borderColor='#20b2aa'"
+                     onmouseout="this.style.boxShadow='none'; this.style.borderColor='#e0e0e0'">
+                    <h4 style="color: #20b2aa; margin-bottom: 8px;">
+                        {% if concept == 'data_types' %}📊 Data Types
+                        {% elif concept == 'functions' %}⚙️ Functions  
+                        {% elif concept == 'control_flow' %}🔄 Control Flow
+                        {% elif concept == 'classes' %}🏗️ Classes
+                        {% elif concept == 'flask' %}🌐 Flask
+                        {% elif concept == 'ml' %}🤖 Machine Learning
+                        {% elif concept == 'numPy' %}🔢 NumPy
+                        {% elif concept == 'tkinter' %}🖥️ Tkinter
+                        {% elif concept == 'turtle' %}🐢 Turtle
+                        {% else %}📁 {{ concept|title }}
+                        {% endif %}
+                    </h4>
+                    <p style="font-size: 14px; color: #666;">
+                        {% if concept == 'data_types' %}Learn about Python's built-in data types and their properties
+                        {% elif concept == 'functions' %}Master Python functions, parameters, and advanced concepts
+                        {% elif concept == 'control_flow' %}Understand control flow, loops, and iteration in Python
+                        {% elif concept == 'classes' %}Explore object-oriented programming in Python
+                        {% elif concept == 'flask' %}Build web applications with Flask framework
+                        {% elif concept == 'ml' %}Introduction to machine learning with Python
+                        {% elif concept == 'numPy' %}Numerical computing with NumPy arrays
+                        {% elif concept == 'tkinter' %}GUI development with Tkinter
+                        {% elif concept == 'turtle' %}Graphics programming with Python Turtle
+                        {% else %}Explore {{ concept }} concepts and examples
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Quick Tips -->
+    <div class="card">
+        <h3>Quick Tips</h3>
+        <ul style="margin-left: 20px;">
+            <li>Each code example is tested and ready to run</li>
+            <li>Comments in the code provide additional context</li>
+            <li>Look for docstrings (triple quotes) for detailed explanations</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

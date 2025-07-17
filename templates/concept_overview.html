@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}{{ concept_name|title }} - Python Learning Guide{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>
+        {% if concept_name == 'data_types' %}📊 Data Types
+        {% elif concept_name == 'functions' %}⚙️ Functions
+        {% elif concept_name == 'control_flow' %}🔄 Control Flow
+        {% elif concept_name == 'classes' %}🏗️ Classes
+        {% elif concept_name == 'flask' %}🌐 Flask
+        {% elif concept_name == 'ml' %}🤖 Machine Learning
+        {% elif concept_name == 'numPy' %}🔢 NumPy
+        {% elif concept_name == 'tkinter' %}🖥️ Tkinter
+        {% elif concept_name == 'turtle' %}🐢 Turtle
+        {% else %}📁 {{ concept_name|title }}
+        {% endif %}
+    </h1>
+    <p>Explore detailed explanations and examples for {{ concept_name.replace('_', ' ') }}</p>
+</div>
+
+<div class="content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> → {{ concept_name|title }}
+    </div>
+
+    <!-- Concept Description -->
+    <div class="card">
+        <h3>📖 About This Section</h3>
+        <p>
+            {% if concept_name == 'data_types' %}
+            This section covers Python's built-in data types including strings, integers, floats, lists, 
+            tuples, dictionaries, and sets. Learn about their properties, methods, and when to use each type.
+            {% elif concept_name == 'functions' %}
+            Dive deep into Python functions, including parameter types, return values, scope, lambda functions, 
+            and advanced concepts like *args and **kwargs.
+            {% elif concept_name == 'control_flow' %}
+            Master Python's control flow structures including if statements, for loops, while loops, 
+            exception handling, and comprehensions.
+            {% elif concept_name == 'classes' %}
+            Learn object-oriented programming in Python with classes, inheritance, methods, and best practices.
+            {% elif concept_name == 'flask' %}
+            Build web applications using Flask framework, including routing, templates, and dynamic content.
+            {% elif concept_name == 'ml' %}
+            Introduction to machine learning concepts with practical Python examples using popular libraries.
+            {% elif concept_name == 'numPy' %}
+            Numerical computing with NumPy arrays, mathematical operations, and data manipulation.
+            {% elif concept_name == 'tkinter' %}
+            Create desktop GUI applications using Python's built-in Tkinter library.
+            {% elif concept_name == 'turtle' %}
+            Graphics programming and drawing with Python's Turtle module.
+            {% else %}
+            Explore various Python concepts and practical examples in this section.
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Files List -->
+    <div class="card">
+        <h3>📄 Explanation Files</h3>
+        <p style="margin-bottom: 20px;">Click on any file below to view detailed explanations and code examples:</p>
+        
+        <div style="display: grid; gap: 15px;">
+            {% for file in files %}
+            <a href="/concept/{{ concept_name }}/{{ file }}" style="text-decoration: none; color: inherit;">
+                <div style="border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; 
+                           transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center;"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(32,178,170,0.3)'; this.style.borderColor='#20b2aa'"
+                     onmouseout="this.style.boxShadow='none'; this.style.borderColor='#e0e0e0'">
+                    
+                    <!-- File Icon -->
+                    <div style="margin-right: 15px; font-size: 24px;">
+                        {% if file.endswith('.py') %}🐍
+                        {% elif file.endswith('.md') %}📝
+                        {% else %}📄
+                        {% endif %}
+                    </div>
+                    
+                    <!-- File Info -->
+                    <div style="flex: 1;">
+                        <h4 style="color: #20b2aa; margin-bottom: 5px; font-size: 16px;">
+                            {{ file.replace('_', ' ').replace('.py', '').replace('.md', '')|title }}
+                        </h4>
+                        <p style="color: #666; font-size: 14px; margin: 0;">
+                            {% if file.endswith('.py') %}
+                            Python explanation file with code examples and detailed comments
+                            {% elif file.endswith('.md') %}
+                            Markdown documentation with formatted explanations
+                            {% else %}
+                            {{ file }}
+                            {% endif %}
+                        </p>
+                        <p style="color: #999; font-size: 12px; margin-top: 5px;">
+                            Type: {% if file.endswith('.py') %}Python Code{% elif file.endswith('.md') %}Markdown{% else %}Unknown{% endif %}
+                        </p>
+                    </div>
+                    
+                    <!-- Arrow -->
+                    <div style="color: #20b2aa; font-size: 18px;">→</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {% if not files %}
+        <div style="text-align: center; padding: 40px; color: #666;">
+            <p>No explanation files found in this section.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Navigation -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/" style="color: #20b2aa; text-decoration: none; padding: 10px 20px; 
+                           border: 1px solid #20b2aa; border-radius: 5px; display: inline-block;
+                           transition: all 0.3s ease;"
+           onmouseover="this.style.background='#20b2aa'; this.style.color='white'"
+           onmouseout="this.style.background='transparent'; this.style.color='#20b2aa'">
+            ← Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}

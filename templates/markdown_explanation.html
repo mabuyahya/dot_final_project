@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}{{ filename.replace('_', ' ').replace('.md', '')|title }} - {{ concept_name|title }}{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>📝 {{ filename.replace('_', ' ').replace('.md', '')|title }}</h1>
+    <p>{{ concept_name.replace('_', ' ')|title }} • Markdown Documentation</p>
+</div>
+
+<div class="content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> → 
+        <a href="/concept/{{ concept_name }}">{{ concept_name|title }}</a> → 
+        {{ filename.replace('_', ' ').replace('.md', '')|title }}
+    </div>
+
+    <!-- File Info -->
+    <div class="card">
+        <h3>📄 Document Information</h3>
+        <div style="display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; align-items: center;">
+            <strong>Filename:</strong> <span>{{ filename }}</span>
+            <strong>Category:</strong> <span>{{ concept_name.replace('_', ' ')|title }}</span>
+            <strong>Type:</strong> <span>Markdown Documentation</span>
+        </div>
+    </div>
+
+    <!-- Markdown Content -->
+    <div class="card">
+        <h3>📖 Documentation Content</h3>
+        <div style="line-height: 1.8; color: #333;">
+            <!-- Simple markdown rendering using CSS -->
+            <div class="markdown-content">
+                <pre style="white-space: pre-wrap; font-family: inherit; margin: 0;">{{ content.markdown_content }}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Raw Content Section (Collapsible) -->
+    <div class="card">
+        <h3 style="cursor: pointer;" onclick="toggleRawContent()">
+            📋 View Raw Markdown 
+            <span id="toggle-icon" style="font-size: 14px; margin-left: 10px;">[+]</span>
+        </h3>
+        <div id="raw-content" style="display: none; margin-top: 15px;">
+            <p style="color: #666; margin-bottom: 15px;">Raw markdown source:</p>
+            <div class="code-block">
+                <pre style="margin: 0; white-space: pre-wrap; font-family: 'Courier New', monospace; 
+                           line-height: 1.6; color: #2d3748; max-height: 400px; overflow-y: auto;"><code>{{ content.raw_content }}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/concept/{{ concept_name }}" 
+           style="color: #667eea; text-decoration: none; padding: 10px 20px; 
+                  border: 1px solid #667eea; border-radius: 5px; display: inline-block;
+                  transition: all 0.3s ease;"
+           onmouseover="this.style.background='#667eea'; this.style.color='white'"
+           onmouseout="this.style.background='transparent'; this.style.color='#667eea'">
+            ← Back to {{ concept_name|title }}
+        </a>
+        
+        <a href="/" 
+           style="color: #28a745; text-decoration: none; padding: 10px 20px; 
+                  border: 1px solid #28a745; border-radius: 5px; display: inline-block;
+                  transition: all 0.3s ease;"
+           onmouseover="this.style.background='#28a745'; this.style.color='white'"
+           onmouseout="this.style.background='transparent'; this.style.color='#28a745'">
+            🏠 Home
+        </a>
+    </div>
+</div>
+
+<style>
+.markdown-content {
+    font-family: inherit;
+}
+
+.markdown-content h1 {
+    color: #667eea;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+    margin: 20px 0 15px 0;
+}
+
+.markdown-content h2 {
+    color: #764ba2;
+    margin: 20px 0 10px 0;
+}
+
+.markdown-content h3 {
+    color: #667eea;
+    margin: 15px 0 8px 0;
+}
+
+.markdown-content ul, .markdown-content ol {
+    margin: 10px 0 10px 20px;
+}
+
+.markdown-content li {
+    margin: 5px 0;
+}
+
+.markdown-content code {
+    background: #f8f8f8;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+.markdown-content strong {
+    color: #667eea;
+    font-weight: bold;
+}
+</style>
+
+<script>
+function toggleRawContent() {
+    const content = document.getElementById('raw-content');
+    const icon = document.getElementById('toggle-icon');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.textContent = '[-]';
+    } else {
+        content.style.display = 'none';
+        icon.textContent = '[+]';
+    }
+}
+</script>
+{% endblock %}

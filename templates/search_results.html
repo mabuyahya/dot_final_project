@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Python Learning Guide{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>🔍 Search Results</h1>
+    <p>
+        {% if query %}
+        Results for "{{ query }}"
+        {% else %}
+        Enter a search term to find explanations
+        {% endif %}
+    </p>
+</div>
+
+<div class="content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> → Search Results
+    </div>
+
+    <!-- Search Box -->
+    <div class="card">
+        <h3>🔍 Search</h3>
+        <form action="/search" method="GET" style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" name="q" value="{{ query }}" placeholder="Search for Python explanations..." 
+                   style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+            <button type="submit" 
+                    style="padding: 12px 24px; background: #667eea; color: white; border: none; 
+                           border-radius: 5px; cursor: pointer; font-size: 16px; transition: background 0.3s ease;"
+                    onmouseover="this.style.background='#5a67d8'"
+                    onmouseout="this.style.background='#667eea'">
+                Search
+            </button>
+        </form>
+    </div>
+
+    {% if query %}
+    <!-- Results -->
+    <div class="card">
+        <h3>📊 Search Results</h3>
+        <p style="color: #666; margin-bottom: 20px;">
+            Found {{ results|length }} result(s) for "{{ query }}"
+        </p>
+
+        {% if results %}
+        <div style="display: grid; gap: 15px;">
+            {% for result in results %}
+            <a href="/concept/{{ result.concept }}/{{ result.filename }}" 
+               style="text-decoration: none; color: inherit;">
+                <div style="border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; 
+                           transition: all 0.3s ease; cursor: pointer;"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(102,126,234,0.3)'; this.style.borderColor='#667eea'"
+                     onmouseout="this.style.boxShadow='none'; this.style.borderColor='#e0e0e0'">
+                    
+                    <!-- Result Header -->
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <div style="margin-right: 10px; font-size: 20px;">🐍</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #667eea; margin: 0; font-size: 16px;">
+                                {{ result.filename.replace('_', ' ').replace('.py', '')|title }}
+                            </h4>
+                            <p style="color: #999; font-size: 12px; margin: 2px 0 0 0;">
+                                {{ result.concept.replace('_', ' ')|title }} → {{ result.filename }}
+                            </p>
+                        </div>
+                        <div style="color: #667eea; font-size: 14px;">→</div>
+                    </div>
+                    
+                    <!-- Result Content -->
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; 
+                               border-left: 3px solid #667eea;">
+                        <p style="margin: 0; line-height: 1.6; color: #2d3748;">
+                            {{ result.content }}
+                        </p>
+                    </div>
+                    
+                    <!-- Result Tags -->
+                    <div style="margin-top: 10px;">
+                        <span style="background: #667eea; color: white; padding: 2px 8px; 
+                                     border-radius: 12px; font-size: 12px; margin-right: 5px;">
+                            {{ result.type|title }}
+                        </span>
+                        <span style="background: #28a745; color: white; padding: 2px 8px; 
+                                     border-radius: 12px; font-size: 12px;">
+                            {{ result.concept.replace('_', ' ')|title }}
+                        </span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 40px; color: #666;">
+            <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+            <h3 style="color: #999;">No results found</h3>
+            <p>Try searching with different keywords or browse the concepts using the sidebar.</p>
+            <div style="margin-top: 20px;">
+                <a href="/" 
+                   style="color: #667eea; text-decoration: none; padding: 10px 20px; 
+                          border: 1px solid #667eea; border-radius: 5px; display: inline-block;
+                          transition: all 0.3s ease;"
+                   onmouseover="this.style.background='#667eea'; this.style.color='white'"
+                   onmouseout="this.style.background='transparent'; this.style.color='#667eea'">
+                    Browse All Concepts
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Search Tips -->
+    {% if not query or not results %}
+    <div class="card">
+        <h3>💡 Search Tips</h3>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Try searching for specific Python terms like "function", "loop", "dictionary"</li>
+            <li>Search for concepts like "mutable", "immutable", "dynamic typing"</li>
+            <li>Look for library names like "flask", "numpy", "pandas"</li>
+            <li>Use simple keywords rather than full sentences</li>
+        </ul>
+    </div>
+
+    <!-- Popular Searches -->
+    <div class="card">
+        <h3>🔥 Popular Topics</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+            {% set popular_terms = ['function', 'list', 'dictionary', 'string', 'loop', 'class', 'flask', 'mutable'] %}
+            {% for term in popular_terms %}
+            <a href="/search?q={{ term }}" 
+               style="background: #f8f9fa; color: #667eea; padding: 8px 15px; border-radius: 20px; 
+                      text-decoration: none; border: 1px solid #e0e0e0; transition: all 0.3s ease;
+                      font-size: 14px;"
+               onmouseover="this.style.background='#667eea'; this.style.color='white'"
+               onmouseout="this.style.background='#f8f9fa'; this.style.color='#667eea'">
+                {{ term }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation -->
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/" 
+           style="color: #667eea; text-decoration: none; padding: 10px 20px; 
+                  border: 1px solid #667eea; border-radius: 5px; display: inline-block;
+                  transition: all 0.3s ease;"
+           onmouseover="this.style.background='#667eea'; this.style.color='white'"
+           onmouseout="this.style.background='transparent'; this.style.color='#667eea'">
+            ← Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
