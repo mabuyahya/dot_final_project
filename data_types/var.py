@@ -1,0 +1,60 @@
+import array
+
+intNum = 10 
+print(type(intNum))
+floatNum = 10.0
+print(floatNum.is_integer())
+print(type(floatNum))
+print("---------------------")
+str = "hello, word!"
+print(str.capitalize())
+print(str.casefold())
+print("---------------------")
+t = "hello",3
+print(t[1].bit_length())
+print("---------------------")
+l = ["word", 4]
+l.append(10.4)
+# l.clear()
+ll = l.copy()
+lll = l
+l.append("rrrr")
+print(l)
+print(ll)
+print(lll)
+print("---------------------")
+d = {"hello":"word",10:10.3}
+dd = d.fromkeys("hello", "hello")
+print(dd.setdefault('t'))
+print(dd)
+print("--------")
+print(dd.pop('5', 10))
+print(dd)
+print(dd.popitem())
+ddd = {('test','test'):'test' }
+
+print(dd.pop(('test', "test"), 10))
+print(ddd)
+dd.update({'dddd' : 30000})
+print(dd)
+print("--------")
+s = set(['jomana', 'tena'])
+s.discard('tena')
+s.remove('jomana')
+s = set([1,2,3,4,5,6,7,8,9])
+re = s.difference([1, 2, 3])
+print(re)
+re = s.difference_update([1,2,3])
+print(s)
+re = s.intersection(set([4, 4, 4])) 
+print(re)
+re = s.isdisjoint([99])
+print(re)
+print("--------")
+re = array.array('b',[12])
+print(re.buffer_info())
+print(re[0])
+rre = re.tobytes()
+fd = open("./day1.md", 'r')
+rre = re.fromfile(fd, )
+print(rre)
